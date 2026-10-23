@@ -1,0 +1,29 @@
+# Visual Studio Cache & Solution Files
+.vs/
+*.suo
+*.user
+
+# Python Backend Artifacts
+backend/build/
+backend/dist/
+backend/*.spec
+backend/downloads/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Frontend Node Modules & Build Output
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+node_modules/
+dist/
+
+# Tauri & Rust Compilation Target / Sidecars
+frontend/src-tauri/target/
+frontend/src-tauri/bin/
+
+# OS Specific Files
+.DS_Store
+Thumbs.db
