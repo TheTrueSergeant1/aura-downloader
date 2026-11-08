@@ -1,40 +1,85 @@
-# Aura
-
-Aura is a desktop media archiver and stream extractor built with **Tauri**, **React**, and a local **FastAPI + yt-dlp** sidecar engine. 
-
-I built this because almost every GUI wrapper for `yt-dlp` and `ffmpeg` either looks like it was designed for Windows XP or locks up the main UI thread while muxing 4K containers. I wanted a native-feeling desktop app with smooth 120Hz spring physics, real-time WebSocket progress telemetry, and one-click presets for editing codecs (like Apple ProRes 422 and lossless FLAC) without touching a terminal.
-
+Aura Studio
+Aura is a desktop media archiver and stream ingest utility built with Tauri, React, and a local FastAPI and yt-dlp sidecar engine.
+I built this tool to manage offline media for my personal homelab server and to pull clean reference clips for video editing without dealing with ad-ridden web scrapers or bitrate caps. Aura pairs a multi-threaded Python extraction backend inside a native desktop shell with real-time WebSocket telemetry, dynamic stream probing, and persistent configuration.
 ---
-
-## Features
-
-- **Live Stream Inspector:** Paste a URL from YouTube, Twitch, Vimeo, X, or 1,000+ other sites supported by `yt-dlp` to inspect available video streams, duration, uploader metadata, and embedded chapter counts before downloading.
-- **Real-Time WebSocket Telemetry:** Live byte-level progress, transfer speed (MB/s), and ETA streamed over a local WebSocket connection to an expandable Dynamic Island status pill.
-- **Multi-Threaded Fragment Engine:** Splits HLS/DASH segments across 8 concurrent download threads so high-bitrate 4K60 streams saturate your connection instead of getting throttled on a single socket.
-- **Editor-Ready Post-Processing:**
-  - **MP4 (H.264 / VP9 / AV1):** Auto-merges highest available video and audio streams up to 2160p60.
-  - **Lossless Audio (`.flac`):** Strips audio streams directly into uncompressed FLAC with embedded thumbnail art and metadata tags.
-  - **Apple ProRes (`.mov`):** Transcodes downloaded footage into ProRes 422 (`prores_ks`) so clips can be dropped straight into Premiere Pro or DaVinci Resolve timelines without proxy generation.
-- **Automated Chapter Splitting:** Detects embedded chapter timestamps and slices long-form videos or podcasts into separate files automatically.
-- **Zero Console Windows:** When compiled for Windows, both the Python sidecar and child `ffmpeg` processes run with `CREATE_NO_WINDOW` flags—no flashing command prompts.
-
+Features
+Stream Ingest and Inspection
+Live Codec and Resolution Probing: Inspects source URLs before downloading to display available resolution tiers, framerates, video codecs, dynamic range, and estimated file sizes.
+Timecode Sub-Clip Extraction: Slice specific timestamp ranges directly from long-form VODs or lectures using keyframe-accurate cuts without downloading the entire file.
+Interactive Playlist Batch Picker: Automatically detects playlists, channels, or multi-part feeds, letting you check or uncheck individual videos, invert selections, and batch-queue them with your chosen export profile.
+Global Paste Shortcut: Press Ctrl+V anywhere in the Ingest Studio workspace to immediately parse and probe a copied stream link.
+Post-Processing and NLE Workflows
+4 Master Export Profiles:
+MP4 Master: Merges highest-bitrate video and audio streams into an MP4 container up to 2160p60.
+Apple ProRes 422: Transcodes footage into edit-ready ProRes for immediate timeline scrubbing in Premiere Pro or DaVinci Resolve.
+FLAC Lossless: Extracts raw audio streams into uncompressed FLAC with embedded metadata and cover art.
+MP3 (320kbps): Constant-bitrate audio extraction for universal playback.
+SponsorBlock Integration: Automatically strips or marks sponsor reads, intros, outros, and self-promotion segments via the SponsorBlock API.
+Chapter Splitting and Subtitles: Slices multi-topic videos into individual files using embedded chapter markers and embeds closed captions directly into the output container.
+EBU R128 Loudness Normalization: Optional audio normalization pass during extraction so all downloaded media plays back at a consistent volume.
+Media Server Automation and Network Control
+Jellyfin and Plex File Naming: Supports standardized naming templates and optional automatic subfolder grouping so archived files index cleanly on home media servers.
+Browser Cookie Authentication: Imports active session cookies directly from Firefox, Chrome, Edge, or Brave to access age-restricted VODs, member streams, and high-bitrate tier streams.
+Duplicate Archive Ledger: Tracks downloaded video IDs locally so you never accidentally re-download the same stream twice.
+Multi-Threaded Fragment Engine: Configurable concurrent fragment downloading, bandwidth rate limiting, and custom HTTP or SOCKS5 proxy routing.
+Local Media Vault: Built-in disk browser that indexes your output directory with file size telemetry, one-click reveal in Explorer, and file management.
+4 Studio Color Themes: Quick-toggle between Obsidian Dark, Daylight Studio, OLED Pitch Black, and Broadcast Slate.
 ---
-
-## Architecture
-
-Aura splits UI rendering and heavy media I/O into two isolated processes:
-
-1. **Frontend (`frontend/`):** React 18, Tailwind CSS v4, and Framer Motion wrapped in a native Tauri WebView2 window. All layout transitions and queue reordering animations use spring-damping physics rather than linear CSS easing.
-2. **Sidecar Engine (`backend/`):** A lightweight Python FastAPI server compiled into a standalone binary via PyInstaller (`aura-engine.exe`). Tauri spawns this binary silently on startup and kills it when the window closes.
-
+Architecture
+Aura separates UI rendering from heavy disk and network I/O across two isolated processes:
+Frontend Shell: React, Tailwind CSS, and Framer Motion running inside a native Tauri desktop window. Communicates with the backend via REST for configuration and probing and a persistent WebSocket connection for live byte-stream progress.
+Sidecar Engine: A Python FastAPI server compiled into a standalone Windows executable via PyInstaller. Tauri's Rust core spawns this sidecar silently on launch with hidden console flags and terminates it when the window closes.
 ```text
 aura-downloader/
 ├── backend/
-│   └── main.py              # FastAPI server, WebSocket broadcaster & yt-dlp hooks
+│   └── main.py              # FastAPI server, WebSocket broadcaster, yt-dlp hooks and config persistence
 └── frontend/
     ├── src/
-    │   ├── App.jsx          # Main UI, queue state, and Web Audio synthesizer
-    │   └── index.css        # Tailwind v4 imports & custom scrollbars
+    │   ├── App.jsx          # Studio UI, stream inspector, transfer queue, vault and preferences
+    │   └── index.css        # Tailwind setup and theme variables
     └── src-tauri/
-        ├── src/main.rs      # Rust lifecycle hooks for spawning/killing Python sidecar
-        └── tauri.conf.json  # Bundle configuration & window settings
+        ├── src/main.rs      # Rust process manager for spawning and killing the Python sidecar
+        └── tauri.conf.json  # Application bundle and window configuration
+```
+---
+Running Locally on Another Machine
+If you downloaded or cloned the source code and want to run it locally without using the pre-compiled release executable, follow these steps:
+Prerequisites
+Make sure you have the following installed on your system:
+Node.js (v18 or higher)
+Python (v3.10 or higher)
+Rust and Cargo (Required for compiling the Tauri desktop shell)
+FFmpeg installed and accessible in your system PATH
+1. Start the Backend Engine
+Open your first terminal in the root folder, navigate into the backend directory, install the required Python dependencies, and boot the server:
+```cmd
+cd backend
+pip install fastapi uvicorn yt-dlp websockets pydantic
+python main.py
+```
+2. Start the Tauri Desktop Shell
+Open a second terminal, navigate into the frontend directory, install the Node modules, and launch the dev environment:
+```cmd
+cd frontend
+npm install
+npx tauri dev
+```
+---
+Building the Standalone Executable
+To package both the Python backend and Tauri frontend into a single Windows installer with zero console windows:
+Compile the Python sidecar binary:
+```cmd
+   cd backend
+   pip install pyinstaller
+   pyinstaller --onefile --noconsole --name aura-engine main.py
+   mkdir ..\frontend\src-tauri\bin
+   copy /Y dist\aura-engine.exe ..\frontend\src-tauri\bin\aura-engine-x86_64-pc-windows-msvc.exe
+   ```
+Build the Tauri installer:
+```cmd
+   cd ..\frontend
+   npx tauri build
+   ```
+---
+License
+MIT
