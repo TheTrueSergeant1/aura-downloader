@@ -62,9 +62,9 @@ aura-downloader/
         └── tauri.conf.json  # Application bundle and window configuration
 ```
 ---
-🛠️ Step-by-Step Installation Guide (Assuming Zero Installed Tools)
+## Step-by-Step Installation Guide (Assuming Zero Installed Tools)
 If you are setting up Aura on a brand-new computer with nothing installed, follow these steps in order:
-Step 1: Install System Dependencies
+-- Step 1: Install System Dependencies
 Node.js: Download and install the LTS version of Node.js (v18 or higher). Make sure to check the box to install necessary tools during setup.
 Python: Download and install Python (v3.10 or higher). Crucial: Check the box at the bottom of the installer that says "Add Python to PATH".
 Rust & Cargo: Download and install Rust (required for compiling the Tauri desktop shell). On Windows, follow the prompts to install `rustup`.
