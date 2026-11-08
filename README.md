@@ -4,7 +4,7 @@
 
 ---
 
-## 💡 About Aura Studio
+## About Aura Studio
 
 Aura Studio was built to solve a very specific problem: managing offline media for a personal homelab server and pulling clean, high-bitrate reference clips for video editing without dealing with ad-ridden web scrapers, annoying popups, or arbitrary resolution caps. 
 
@@ -12,7 +12,7 @@ Aura combines a multi-threaded Python extraction backend inside a native desktop
 
 ---
 
-## 🌟 Comprehensive Feature Breakdown
+## Comprehensive Feature Breakdown
 
 ### 1. Stream Ingest & Format Inspector
 * **Live Codec & Resolution Probing:** Automatically inspects target URLs before downloading to display available resolution tiers, framerates, video codecs (`AVC1`, `VP9`, `AV01`), dynamic range (`HDR`/`SDR`), and estimated file sizes.
