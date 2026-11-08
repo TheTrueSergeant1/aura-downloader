@@ -2,12 +2,112 @@
 
 @layer base {
     body {
-        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", system-ui, sans-serif;
         user-select: none;
     }
 }
 
-/* Subtle macOS-style custom scrollbar */
+/* ---------------- STUDIO LIGHT THEME OVERRIDES ---------------- */
+[data-theme="light"] {
+    background-color: #f4f4f6 !important;
+    color: #18181b !important;
+}
+
+    [data-theme="light"] aside,
+    [data-theme="light"] header {
+        background-color: #ffffff !important;
+        border-color: #e4e4e7 !important;
+    }
+
+    [data-theme="light"] .bg-\[\#09090B\],
+    [data-theme="light"] .bg-\[\#0C0C0F\] {
+        background-color: #f4f4f6 !important;
+    }
+
+    [data-theme="light"] .bg-\[\#111115\],
+    [data-theme="light"] .bg-\[\#121216\] {
+        background-color: #ffffff !important;
+        border-color: #e4e4e7 !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+    }
+
+    [data-theme="light"] .bg-zinc-900,
+    [data-theme="light"] .bg-zinc-900\/40,
+    [data-theme="light"] .bg-zinc-900\/50,
+    [data-theme="light"] .bg-zinc-900\/60,
+    [data-theme="light"] .bg-zinc-950,
+    [data-theme="light"] .bg-zinc-950\/60 {
+        background-color: #f4f4f5 !important;
+        border-color: #d4d4d8 !important;
+    }
+
+    [data-theme="light"] .bg-zinc-800,
+    [data-theme="light"] .bg-zinc-800\/80,
+    [data-theme="light"] .bg-zinc-800\/90 {
+        background-color: #e4e4e7 !important;
+        border-color: #d4d4d8 !important;
+    }
+
+    [data-theme="light"] .text-zinc-100,
+    [data-theme="light"] .text-zinc-200 {
+        color: #18181b !important;
+    }
+
+    [data-theme="light"] .text-zinc-300,
+    [data-theme="light"] .text-zinc-400 {
+        color: #3f3f46 !important;
+    }
+
+    [data-theme="light"] .text-zinc-500 {
+        color: #71717a !important;
+    }
+
+    [data-theme="light"] .border-zinc-800,
+    [data-theme="light"] .border-zinc-800\/80,
+    [data-theme="light"] .border-zinc-800\/90,
+    [data-theme="light"] .border-zinc-700,
+    [data-theme="light"] .border-zinc-700\/60 {
+        border-color: #e4e4e7 !important;
+    }
+
+    [data-theme="light"] .bg-zinc-100 {
+        background-color: #18181b !important;
+        color: #ffffff !important;
+    }
+
+/* ---------------- OLED PITCH BLACK THEME ---------------- */
+[data-theme="oled"] .bg-\[\#09090B\],
+[data-theme="oled"] .bg-\[\#0C0C0F\],
+[data-theme="oled"] aside,
+[data-theme="oled"] header {
+    background-color: #000000 !important;
+}
+
+[data-theme="oled"] .bg-\[\#111115\],
+[data-theme="oled"] .bg-\[\#121216\] {
+    background-color: #050507 !important;
+    border-color: #18181b !important;
+}
+
+/* ---------------- NORD BROADCAST SLATE THEME ---------------- */
+[data-theme="nord"] .bg-\[\#09090B\] {
+    background-color: #0b101b !important;
+}
+
+[data-theme="nord"] aside,
+[data-theme="nord"] header,
+[data-theme="nord"] .bg-\[\#0C0C0F\] {
+    background-color: #0f172a !important;
+    border-color: #1e293b !important;
+}
+
+[data-theme="nord"] .bg-\[\#111115\],
+[data-theme="nord"] .bg-\[\#121216\] {
+    background-color: #131c31 !important;
+    border-color: #1e293b !important;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -17,10 +117,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(161, 161, 170, 0.25);
     border-radius: 9999px;
 }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.25);
+        background: rgba(161, 161, 170, 0.45);
     }
