@@ -1,29 +1,36 @@
-Aura Studio
-Aura is a desktop media archiver and stream ingest utility built with Tauri, React, and a local FastAPI and yt-dlp sidecar engine.
+# Aura Studio
+
+Aura is a desktop media archiver and stream ingest utility built with **Tauri**, **React**, and a local **FastAPI + yt-dlp** sidecar engine.
+
 I built this tool to manage offline media for my personal homelab server and to pull clean reference clips for video editing without dealing with ad-ridden web scrapers or bitrate caps. Aura pairs a multi-threaded Python extraction backend inside a native desktop shell with real-time WebSocket telemetry, dynamic stream probing, and persistent configuration.
+
 ---
-Features
-Stream Ingest and Inspection
-Live Codec and Resolution Probing: Inspects source URLs before downloading to display available resolution tiers, framerates, video codecs, dynamic range, and estimated file sizes.
-Timecode Sub-Clip Extraction: Slice specific timestamp ranges directly from long-form VODs or lectures using keyframe-accurate cuts without downloading the entire file.
-Interactive Playlist Batch Picker: Automatically detects playlists, channels, or multi-part feeds, letting you check or uncheck individual videos, invert selections, and batch-queue them with your chosen export profile.
-Global Paste Shortcut: Press Ctrl+V anywhere in the Ingest Studio workspace to immediately parse and probe a copied stream link.
-Post-Processing and NLE Workflows
-4 Master Export Profiles:
-MP4 Master: Merges highest-bitrate video and audio streams into an MP4 container up to 2160p60.
-Apple ProRes 422: Transcodes footage into edit-ready ProRes for immediate timeline scrubbing in Premiere Pro or DaVinci Resolve.
-FLAC Lossless: Extracts raw audio streams into uncompressed FLAC with embedded metadata and cover art.
-MP3 (320kbps): Constant-bitrate audio extraction for universal playback.
-SponsorBlock Integration: Automatically strips or marks sponsor reads, intros, outros, and self-promotion segments via the SponsorBlock API.
-Chapter Splitting and Subtitles: Slices multi-topic videos into individual files using embedded chapter markers and embeds closed captions directly into the output container.
-EBU R128 Loudness Normalization: Optional audio normalization pass during extraction so all downloaded media plays back at a consistent volume.
-Media Server Automation and Network Control
-Jellyfin and Plex File Naming: Supports standardized naming templates and optional automatic subfolder grouping so archived files index cleanly on home media servers.
-Browser Cookie Authentication: Imports active session cookies directly from Firefox, Chrome, Edge, or Brave to access age-restricted VODs, member streams, and high-bitrate tier streams.
-Duplicate Archive Ledger: Tracks downloaded video IDs locally so you never accidentally re-download the same stream twice.
-Multi-Threaded Fragment Engine: Configurable concurrent fragment downloading, bandwidth rate limiting, and custom HTTP or SOCKS5 proxy routing.
-Local Media Vault: Built-in disk browser that indexes your output directory with file size telemetry, one-click reveal in Explorer, and file management.
-4 Studio Color Themes: Quick-toggle between Obsidian Dark, Daylight Studio, OLED Pitch Black, and Broadcast Slate.
+
+## Features
+
+### Stream Ingest & Inspection
+* **Live Codec & Resolution Probing:** Inspects source URLs before downloading to display available resolution tiers, framerates (30fps/60fps), video codecs (AV1, VP9, H.264), dynamic range (HDR/SDR), and estimated file sizes.
+* **Timecode Sub-Clip Extraction (In / Out):** Slice specific timestamp ranges (e.g., 01:15 to 04:30) directly from long-form VODs or lectures using keyframe-accurate cuts without downloading the entire file.
+* **Interactive Playlist Batch Picker:** Automatically detects playlists, channels, or multi-part feeds, letting you check or uncheck individual videos, invert selections, and batch-queue them with your chosen export profile.
+* **Global Paste Shortcut:** Press `Ctrl+V` anywhere in the Ingest Studio workspace to immediately parse and probe a copied stream link.
+
+### Post-Processing & NLE Workflows
+* **4 Master Export Profiles:**
+  * **MP4 Master:** Merges highest-bitrate video and audio streams into an `.mp4` container up to 2160p60.
+  * **Apple ProRes 422 (.mov):** Transcodes footage into edit-ready ProRes (`prores_ks`) for immediate timeline scrubbing in Premiere Pro or DaVinci Resolve.
+  * **FLAC Lossless:** Extracts raw audio streams into uncompressed FLAC with embedded metadata and cover art.
+  * **MP3 (320kbps):** Constant-bitrate audio extraction for universal playback.
+* **SponsorBlock Integration:** Automatically strips or marks sponsor reads, intros, outros, and self-promotion segments via the SponsorBlock API.
+* **Chapter Splitting & Subtitles:** Slices multi-topic videos into individual files using embedded chapter markers and embeds `.srt` closed captions directly into the output container.
+* **EBU R128 Loudness Normalization:** Optional `-14 LUFS` audio normalization pass during extraction so all downloaded media plays back at a consistent volume.
+
+### Media Server Automation & Network Control
+* **Jellyfin / Plex File Naming:** Supports standardized naming templates (`YYYY-MM-DD - Title [ID].ext`) and optional automatic `/ChannelName/` subfolder grouping so archived files index cleanly on home media servers.
+* **Browser Cookie Authentication:** Imports active session cookies directly from Firefox, LibreWolf, Chrome, Edge, or Brave to access age-restricted VODs, member streams, and high-bitrate tier streams.
+* **Duplicate Archive Ledger (`archive.txt`):** Tracks downloaded video IDs locally so you never accidentally re-download the same stream twice.
+* **Multi-Threaded Fragment Engine:** Configurable concurrent fragment downloading (1x to 16x threads), bandwidth rate limiting, and custom `HTTP`/`SOCKS5` proxy routing.
+* **Local Media Vault:** Built-in disk browser that indexes your output directory with file size telemetry, one-click reveal in Windows Explorer, and file management.
+* **4 Studio Color Themes:** Quick-toggle between Obsidian Dark, Daylight Studio, OLED Pitch Black, and Broadcast Slate.
 ---
 Architecture
 Aura separates UI rendering from heavy disk and network I/O across two isolated processes:
