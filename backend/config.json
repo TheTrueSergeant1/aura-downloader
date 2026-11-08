@@ -1,0 +1,19 @@
+{
+  "theme": "oled",
+  "download_dir": "E:\\Projects\\aura-downloader\\backend\\downloads",
+  "naming_template": "standard",
+  "organizer_subfolder": false,
+  "concurrent_fragments": 8,
+  "speed_limit_mb": 0,
+  "cookies_browser": "firefox",
+  "proxy_url": "",
+  "default_sponsorblock": "none",
+  "embed_metadata": true,
+  "embed_thumbnail": true,
+  "write_subs": false,
+  "sub_lang": "en",
+  "normalize_audio": false,
+  "use_archive": false,
+  "hw_accel": true,
+  "audio_sfx": true
+}

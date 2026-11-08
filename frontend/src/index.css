@@ -1,115 +1,218 @@
 @import "tailwindcss";
 
 @layer base {
+    :root {
+        --theme-bg: #09090b;
+        --theme-panel: #111115;
+        --theme-surface: #18181f;
+        --theme-surface-hover: #22222c;
+        --theme-border: #27272a;
+        --theme-text: #f4f4f5;
+        --theme-muted: #a1a1aa;
+        --theme-scroll-thumb: #3f3f46;
+        color-scheme: dark;
+    }
+
+    /* 1. Obsidian Dark */
+    [data-theme="dark"] {
+        --theme-bg: #09090b;
+        --theme-panel: #111115;
+        --theme-surface: #18181f;
+        --theme-surface-hover: #23232d;
+        --theme-border: #27272a;
+        --theme-text: #f4f4f5;
+        --theme-muted: #a1a1aa;
+        --theme-scroll-thumb: #3f3f46;
+        color-scheme: dark;
+    }
+
+    /* 2. OLED Pitch Black */
+    [data-theme="oled"] {
+        --theme-bg: #000000;
+        --theme-panel: #070709;
+        --theme-surface: #0d0d12;
+        --theme-surface-hover: #16161f;
+        --theme-border: #1c1c24;
+        --theme-text: #ffffff;
+        --theme-muted: #71717a;
+        --theme-scroll-thumb: #27272a;
+        color-scheme: dark;
+    }
+
+    /* 3. Broadcast Slate (Nord) */
+    [data-theme="nord"] {
+        --theme-bg: #0d1219;
+        --theme-panel: #131a24;
+        --theme-surface: #1a2433;
+        --theme-surface-hover: #233044;
+        --theme-border: #29384d;
+        --theme-text: #f1f5f9;
+        --theme-muted: #94a3b8;
+        --theme-scroll-thumb: #334155;
+        color-scheme: dark;
+    }
+
+    /* 4. Tokyo Night */
+    [data-theme="tokyo"] {
+        --theme-bg: #0f0f17;
+        --theme-panel: #161622;
+        --theme-surface: #1d1e2e;
+        --theme-surface-hover: #26283d;
+        --theme-border: #2d2f4a;
+        --theme-text: #e0e7ff;
+        --theme-muted: #9098c9;
+        --theme-scroll-thumb: #3b3e63;
+        color-scheme: dark;
+    }
+
+    /* 5. Catppuccin Mocha */
+    [data-theme="catppuccin"] {
+        --theme-bg: #11111b;
+        --theme-panel: #181825;
+        --theme-surface: #1e1e2e;
+        --theme-surface-hover: #28283d;
+        --theme-border: #313244;
+        --theme-text: #cdd6f4;
+        --theme-muted: #a6adc8;
+        --theme-scroll-thumb: #45475a;
+        color-scheme: dark;
+    }
+
+    /* 6. Dracula Studio */
+    [data-theme="dracula"] {
+        --theme-bg: #0d0b12;
+        --theme-panel: #15121e;
+        --theme-surface: #1f1a2e;
+        --theme-surface-hover: #2a233d;
+        --theme-border: #362c4f;
+        --theme-text: #f8f8f2;
+        --theme-muted: #a99ec2;
+        --theme-scroll-thumb: #4c3d70;
+        color-scheme: dark;
+    }
+
+    /* 7. Matrix Terminal (Emerald) */
+    [data-theme="emerald"] {
+        --theme-bg: #060c09;
+        --theme-panel: #0b1510;
+        --theme-surface: #102018;
+        --theme-surface-hover: #162b21;
+        --theme-border: #193829;
+        --theme-text: #ecfdf5;
+        --theme-muted: #6ee7b7;
+        --theme-scroll-thumb: #1f4734;
+        color-scheme: dark;
+    }
+
+    /* 8. Daylight Studio (Light Mode) */
+    [data-theme="light"] {
+        --theme-bg: #f4f4f5;
+        --theme-panel: #ffffff;
+        --theme-surface: #f1f1f4;
+        --theme-surface-hover: #e4e4e9;
+        --theme-border: #d4d4d8;
+        --theme-text: #18181b;
+        --theme-muted: #52525b;
+        --theme-scroll-thumb: #a1a1aa;
+        color-scheme: light;
+    }
+
+    html,
     body {
-        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", system-ui, sans-serif;
-        user-select: none;
+        margin: 0;
+        padding: 0;
+        background-color: var(--theme-bg);
+        color: var(--theme-text);
+        font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+        -webkit-font-smoothing: antialiased;
+        overflow: hidden;
     }
 }
 
-/* ---------------- STUDIO LIGHT THEME OVERRIDES ---------------- */
-[data-theme="light"] {
-    background-color: #f4f4f6 !important;
+/* Automatically adapt inner zinc surfaces, inputs, selects, and borders to the active theme */
+[data-theme] select,
+[data-theme] input[type="text"],
+[data-theme] input[type="number"] {
+    color: var(--theme-text);
+}
+
+    [data-theme] select option {
+        background-color: var(--theme-panel);
+        color: var(--theme-text);
+    }
+
+[data-theme="nord"] .bg-zinc-900,
+[data-theme="tokyo"] .bg-zinc-900,
+[data-theme="catppuccin"] .bg-zinc-900,
+[data-theme="dracula"] .bg-zinc-900,
+[data-theme="emerald"] .bg-zinc-900,
+[data-theme="oled"] .bg-zinc-900,
+[data-theme="light"] .bg-zinc-900 {
+    background-color: var(--theme-surface) !important;
+}
+
+[data-theme="nord"] .bg-zinc-900\/50,
+[data-theme="nord"] .bg-zinc-900\/60,
+[data-theme="tokyo"] .bg-zinc-900\/50,
+[data-theme="tokyo"] .bg-zinc-900\/60,
+[data-theme="catppuccin"] .bg-zinc-900\/50,
+[data-theme="catppuccin"] .bg-zinc-900\/60,
+[data-theme="dracula"] .bg-zinc-900\/50,
+[data-theme="dracula"] .bg-zinc-900\/60,
+[data-theme="emerald"] .bg-zinc-900\/50,
+[data-theme="emerald"] .bg-zinc-900\/60,
+[data-theme="oled"] .bg-zinc-900\/50,
+[data-theme="oled"] .bg-zinc-900\/60,
+[data-theme="light"] .bg-zinc-900\/50,
+[data-theme="light"] .bg-zinc-900\/60 {
+    background-color: var(--theme-surface) !important;
+}
+
+[data-theme="nord"] .border-zinc-800,
+[data-theme="nord"] .border-zinc-800\/80,
+[data-theme="tokyo"] .border-zinc-800,
+[data-theme="tokyo"] .border-zinc-800\/80,
+[data-theme="catppuccin"] .border-zinc-800,
+[data-theme="catppuccin"] .border-zinc-800\/80,
+[data-theme="dracula"] .border-zinc-800,
+[data-theme="dracula"] .border-zinc-800\/80,
+[data-theme="emerald"] .border-zinc-800,
+[data-theme="emerald"] .border-zinc-800\/80,
+[data-theme="oled"] .border-zinc-800,
+[data-theme="oled"] .border-zinc-800\/80,
+[data-theme="light"] .border-zinc-800,
+[data-theme="light"] .border-zinc-800\/80 {
+    border-color: var(--theme-border) !important;
+}
+
+/* Daylight Studio (Light Mode) text contrast adjustments */
+[data-theme="light"] .text-zinc-100,
+[data-theme="light"] .text-zinc-200,
+[data-theme="light"] .text-zinc-300 {
     color: #18181b !important;
 }
 
-    [data-theme="light"] aside,
-    [data-theme="light"] header {
-        background-color: #ffffff !important;
-        border-color: #e4e4e7 !important;
-    }
-
-    [data-theme="light"] .bg-\[\#09090B\],
-    [data-theme="light"] .bg-\[\#0C0C0F\] {
-        background-color: #f4f4f6 !important;
-    }
-
-    [data-theme="light"] .bg-\[\#111115\],
-    [data-theme="light"] .bg-\[\#121216\] {
-        background-color: #ffffff !important;
-        border-color: #e4e4e7 !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
-    }
-
-    [data-theme="light"] .bg-zinc-900,
-    [data-theme="light"] .bg-zinc-900\/40,
-    [data-theme="light"] .bg-zinc-900\/50,
-    [data-theme="light"] .bg-zinc-900\/60,
-    [data-theme="light"] .bg-zinc-950,
-    [data-theme="light"] .bg-zinc-950\/60 {
-        background-color: #f4f4f5 !important;
-        border-color: #d4d4d8 !important;
-    }
-
-    [data-theme="light"] .bg-zinc-800,
-    [data-theme="light"] .bg-zinc-800\/80,
-    [data-theme="light"] .bg-zinc-800\/90 {
-        background-color: #e4e4e7 !important;
-        border-color: #d4d4d8 !important;
-    }
-
-    [data-theme="light"] .text-zinc-100,
-    [data-theme="light"] .text-zinc-200 {
-        color: #18181b !important;
-    }
-
-    [data-theme="light"] .text-zinc-300,
-    [data-theme="light"] .text-zinc-400 {
-        color: #3f3f46 !important;
-    }
-
-    [data-theme="light"] .text-zinc-500 {
-        color: #71717a !important;
-    }
-
-    [data-theme="light"] .border-zinc-800,
-    [data-theme="light"] .border-zinc-800\/80,
-    [data-theme="light"] .border-zinc-800\/90,
-    [data-theme="light"] .border-zinc-700,
-    [data-theme="light"] .border-zinc-700\/60 {
-        border-color: #e4e4e7 !important;
-    }
-
-    [data-theme="light"] .bg-zinc-100 {
-        background-color: #18181b !important;
-        color: #ffffff !important;
-    }
-
-/* ---------------- OLED PITCH BLACK THEME ---------------- */
-[data-theme="oled"] .bg-\[\#09090B\],
-[data-theme="oled"] .bg-\[\#0C0C0F\],
-[data-theme="oled"] aside,
-[data-theme="oled"] header {
-    background-color: #000000 !important;
+[data-theme="light"] .text-zinc-400,
+[data-theme="light"] .text-zinc-500 {
+    color: #52525b !important;
 }
 
-[data-theme="oled"] .bg-\[\#111115\],
-[data-theme="oled"] .bg-\[\#121216\] {
-    background-color: #050507 !important;
-    border-color: #18181b !important;
+[data-theme="light"] .bg-zinc-800,
+[data-theme="light"] .bg-zinc-800\/80,
+[data-theme="light"] .bg-zinc-800\/90 {
+    background-color: #e4e4e7 !important;
+    color: #18181b !important;
 }
 
-/* ---------------- NORD BROADCAST SLATE THEME ---------------- */
-[data-theme="nord"] .bg-\[\#09090B\] {
-    background-color: #0b101b !important;
+/* Custom Studio Scrollbars */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--theme-scroll-thumb) transparent;
 }
 
-[data-theme="nord"] aside,
-[data-theme="nord"] header,
-[data-theme="nord"] .bg-\[\#0C0C0F\] {
-    background-color: #0f172a !important;
-    border-color: #1e293b !important;
-}
-
-[data-theme="nord"] .bg-\[\#111115\],
-[data-theme="nord"] .bg-\[\#121216\] {
-    background-color: #131c31 !important;
-    border-color: #1e293b !important;
-}
-
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -117,10 +220,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(161, 161, 170, 0.25);
+    background: var(--theme-scroll-thumb);
     border-radius: 9999px;
 }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: rgba(161, 161, 170, 0.45);
+        filter: brightness(1.25);
     }
