@@ -993,7 +993,7 @@ export default function App() {
                                             value={inputUrl}
                                             onChange={(e) => setInputUrl(e.target.value)}
                                             onKeyDown={(e) => e.key === 'Enter' && handleAnalyzeStream()}
-                                            placeholder="Paste video, stream, or playlist URL (YouTube, Twitch, MissAV, Vimeo, SoundCloud...)"
+                                            placeholder="Paste URL"
                                             className="flex-1 px-3 py-2 bg-transparent text-xs font-mono focus:outline-none select-text"
                                         />
                                         {inputUrl && (
@@ -1412,7 +1412,7 @@ export default function App() {
                                             value={imageInputUrl}
                                             onChange={(e) => setImageInputUrl(e.target.value)}
                                             onKeyDown={(e) => e.key === 'Enter' && handleScanGallery()}
-                                            placeholder="Paste gallery or webpage URL (ImageFap, Imgur, Reddit, DeviantArt, Pixiv, web pages...)"
+                                            placeholder="Paste URL"
                                             className="flex-1 py-2 bg-transparent text-xs font-mono focus:outline-none select-text"
                                         />
                                         {imageInputUrl && (
