@@ -64,11 +64,11 @@ aura-downloader/
 ---
 ## Step-by-Step Installation Guide (Assuming Zero Installed Tools)
 If you are setting up Aura on a brand-new computer with nothing installed, follow these steps in order:
--- Step 1: Install System Dependencies
-Node.js: Download and install the LTS version of Node.js (v18 or higher). Make sure to check the box to install necessary tools during setup.
-Python: Download and install Python (v3.10 or higher). Crucial: Check the box at the bottom of the installer that says "Add Python to PATH".
-Rust & Cargo: Download and install Rust (required for compiling the Tauri desktop shell). On Windows, follow the prompts to install `rustup`.
-FFmpeg: Download FFmpeg from gyan.dev, extract the folder, and add the `bin` directory to your Windows System Environment Variables PATH.
+* Step 1: Install System Dependencies
+* Node.js: Download and install the LTS version of Node.js (v18 or higher). Make sure to check the box to install necessary tools during setup.
+* Python: Download and install Python (v3.10 or higher). Crucial: Check the box at the bottom of the installer that says "Add Python to PATH".
+* Rust & Cargo: Download and install Rust (required for compiling the Tauri desktop shell). On Windows, follow the prompts to install `rustup`.
+* FFmpeg: Download FFmpeg from gyan.dev, extract the folder, and add the `bin` directory to your Windows System Environment Variables PATH.
 ---
 Step 2: Clone or Download the Source Code
 Open your Windows Command Prompt (`cmd`) and clone the repository or open your project folder:
